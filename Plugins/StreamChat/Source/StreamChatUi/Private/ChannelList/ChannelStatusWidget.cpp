@@ -1,10 +1,16 @@
 // Copyright 2021 Stream.IO, Inc. All Rights Reserved.
 
-#include "Channel/ChannelStatusWidget.h"
+#include "ChannelList/ChannelStatusWidget.h"
 
 #include "Algo/Transform.h"
+#include "ThemeDataAsset.h"
 #include "UiBlueprintLibrary.h"
 #include "WidgetUtil.h"
+
+UChannelStatusWidget::UChannelStatusWidget()
+{
+    bWantsTheme = true;
+}
 
 void UChannelStatusWidget::Setup(UChatChannel* InChannel)
 {
@@ -33,20 +39,17 @@ void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel) const
 
 void UChannelStatusWidget::OnSetup()
 {
-    if (!Channel)
+    if (Channel)
     {
-        return;
+        Channel->MessagesUpdated.AddDynamic(this, &UChannelStatusWidget::OnMessagesUpdated);
     }
-
-    Channel->MessagesUpdated.AddDynamic(this, &UChannelStatusWidget::OnMessagesUpdated);
 
     if (Button)
     {
         Button->OnClicked.AddDynamic(this, &UChannelStatusWidget::OnButtonClicked);
-        Button->SetStyle(NormalStyle);
     }
 
-    if (Avatar)
+    if (Channel && Avatar)
     {
         Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
     }
@@ -54,6 +57,31 @@ void UChannelStatusWidget::OnSetup()
     // Force update channel title
     ChannelTitleAvailableSpace = -1.f;
     UpdateDynamic();
+}
+
+void UChannelStatusWidget::OnTheme(const UThemeDataAsset* Theme)
+{
+    NormalStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusNormalBackgroundColor)};
+    NormalStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
+    NormalStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusHoveredBackgroundColor)};
+    SelectedStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
+    SelectedStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
+    SelectedStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
+    if (Button)
+    {
+        Button->SetStyle(NormalStyle);
+    }
+
+    if (Divider)
+    {
+        Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ChannelStatusDividerColor));
+    }
+
+    if (TitleTextBlock)
+    {
+        const FName Color{Channel->Properties.bMuted ? Theme->ChannelStatusMutedTitleTextColor : Theme->ChannelStatusTitleTextColor};
+        TitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Color));
+    }
 }
 
 int32 UChannelStatusWidget::NativePaint(
@@ -88,12 +116,7 @@ int32 UChannelStatusWidget::NativePaint(
 
 void UChannelStatusWidget::UpdateDynamic() const
 {
-    if (!Channel)
-    {
-        return;
-    }
-
-    if (Timestamp)
+    if (Channel && Timestamp)
     {
         Timestamp->Setup(Channel->State.GetMessages().Last(), false, true);
     }

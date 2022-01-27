@@ -5,6 +5,7 @@
 #include "Avatar/AvatarWidget.h"
 #include "Channel/ChatChannel.h"
 #include "Components/Button.h"
+#include "Components/Image.h"
 #include "CoreMinimal.h"
 #include "Message/TimestampWidget.h"
 #include "StreamWidget.h"
@@ -20,6 +21,7 @@ class STREAMCHATUI_API UChannelStatusWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
+    UChannelStatusWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(UChatChannel* InChannel);
 
@@ -49,13 +51,12 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UTimestampWidget* Timestamp;
 
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    FButtonStyle NormalStyle;
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    FButtonStyle SelectedStyle;
+    UPROPERTY(meta = (BindWidget))
+    UImage* Divider;
 
 private:
     virtual void OnSetup() override;
+    virtual void OnTheme(const UThemeDataAsset*) override;
 
     virtual int32 NativePaint(
         const FPaintArgs& Args,
@@ -77,4 +78,7 @@ private:
 
     mutable float RecentMessageAvailableSpace;
     mutable float ChannelTitleAvailableSpace;
+
+    FButtonStyle NormalStyle;
+    FButtonStyle SelectedStyle;
 };

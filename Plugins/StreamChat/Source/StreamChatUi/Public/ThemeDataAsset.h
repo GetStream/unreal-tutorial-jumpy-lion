@@ -129,4 +129,49 @@ public:
     /// The background color of the highlighted area surrounding the reaction icon in the reactions tooltip
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Reactions Tooltip")
     FName ReactionsTooltipIconHighlightColor = TEXT("link-bg");
+
+    /// The background color of the default header widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Header")
+    FName HeaderBackgroundColor = TEXT("bars-bg");
+
+    /// The background color of the default header widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Header")
+    FName HeaderTitleTextColor = TEXT("text-high-emphasis");
+
+    /// The background color of the message list container
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Team Chat")
+    FName MessageListContainerBackgroundColor = TEXT("app-bg");
+    /// The background color of the channel list container
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Team Chat")
+    FName ChannelListContainerBackgroundColor = TEXT("input-bg");
+    /// The color of the dividers in the team chat layout
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Team Chat")
+    FName TeamChatDividerColor = TEXT("borders");
+
+    /// The color of the divider between the header and messages in the channel widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel")
+    FName ChannelHeaderDividerColor = TEXT("borders");
+
+    /// The normal background color of the channel status button
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusNormalBackgroundColor = TEXT("bars-bg");
+    /// The hovered background color of the channel status button
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusHoveredBackgroundColor = TEXT("input-bg");
+    /// The selected background color of the channel status button
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusSelectedBackgroundColor = TEXT("borders");
+    /// The color of the title text of the channel status widget normally
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusTitleTextColor = TEXT("text-high-emphasis");
+    /// The color of the title text of the channel status widget when muted
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusMutedTitleTextColor = TEXT("text-low-emphasis");
+    /// The color of the divider between each channel status widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusDividerColor = TEXT("borders");
+
+    /// The color of the top left icon in the channel list header
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel List Header")
+    FName ChannelListHeaderIconColor = TEXT("text-high-emphasis");
 };
