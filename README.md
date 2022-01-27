@@ -29,4 +29,4 @@ If you want to follow along with the tutorial from the start, clone this reposit
 
 If you'd just like the check out the finished product, see the default `main` branch.
 
-This repository isn't actively maintained. However "Jumpy Lion" game is included in the [Unreal SDK repository](https://github.com/GetStream/stream-chat-unreal) as one of the sample projects. This version already includes some extra features like a leaderboard, and will continue to be extended in the future.
+This repository isn't actively maintained. However, the "Jumpy Lion" game is included in the [Unreal SDK repository](https://github.com/GetStream/stream-chat-unreal) as one of the sample projects. This version already includes some extra features like a leaderboard and will continue to be extended in the future.
