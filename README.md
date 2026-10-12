@@ -1,3 +1,5 @@
+> **This repository is archived and no longer maintained.** For a current alternative, see [stream-chat-unreal](https://github.com/GetStream/stream-chat-unreal).
+
 <p align="center">
   <img src="ReadmeAssets/feature.png"/>
 </p>
